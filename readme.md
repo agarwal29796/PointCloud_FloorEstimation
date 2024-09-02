@@ -108,9 +108,19 @@ This function calculates a rotation that aligns the input `floor_normal` with th
 
    *Left: Original randomly oriented point cloud. Right: After floor detection and alignment.*
    
-### Other Limitations:
-This approach will require modifications and improvements depending upon the shoe geometry (**for example: Boot Shoes and Heels.**) 
+### Other Limitations and Remedies:
+This approach will require modifications and improvements depending upon the shoe geometry (**for example: Boot Shoes and Heels.**) <br>
+Since we are getting three orthogonal vectors from PCA, there is a high probability that one of them will represent the floor normal. By using some heuristics based on other available data, we could apply differentiation.
+Here are a few ideas:
+   - **Weighted PCA**: Assign weights to points based on their likelihood of belonging to the floor.
+   - **Validation**: Validate the detected floor plane against known geometric constraints.
+   - **Segmentation**: Use segmentation techniques to isolate the shoe from the floor and other objects.
+   - **Outlier Removal**: Apply outlier removal algorithms to clean the point cloud data.
 
+### Alternative Approaches:
+There are other RANSAC-based approaches that can be compared to PCA for floor detection. RANSAC (Random Sample Consensus) is a robust method for fitting models to data with a high proportion of outliers. It can be used to detect the floor plane by iteratively selecting random subsets of points and fitting a plane to them, then determining the best fit based on the number of inliers.
+
+ 
 # Point Cloud to other format conversions:  
 Depending upon the use case we have different formats to represents to 3d geometry. 
 1. **SDF (Signed Distance Function)**:
